@@ -1,0 +1,413 @@
+/* Estilos generales */
+.app-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #edf2f4 0%, #d1d9e0 100%);
+  padding: 20px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Tema oscuro */
+.app-container.dark-mode {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+/* Botón de cambio de tema */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  font-size: 22px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1) rotate(180deg);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .theme-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Contenedor de cards */
+.cards-container {
+  margin-top: 120px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 30px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Estilos base para todos los cards */
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.1),
+    0 8px 24px rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
+  backdrop-filter: blur(10px);
+}
+
+/* Tema oscuro para cards */
+.dark-mode .card {
+  background: rgba(26, 26, 46, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 8px 24px rgba(0, 0, 0, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Efecto de relieve y hover */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 100%);
+  border-radius: 24px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.dark-mode .card::before {
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 32px 80px rgba(0, 0, 0, 0.15),
+    0 12px 32px rgba(0, 0, 0, 0.1),
+    0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Asegurar que el contenido del treemap esté por encima del efecto hover */
+.treemap-container {
+  position: relative;
+  z-index: 2;
+}
+
+.chart-container {
+  position: relative;
+  z-index: 2;
+}
+
+.dark-mode .card:hover {
+  box-shadow: 
+    0 32px 80px rgba(0, 0, 0, 0.5),
+    0 12px 32px rgba(0, 0, 0, 0.4),
+    0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Posicionamiento específico de cada card */
+.card-1 {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.card-2 {
+  grid-column: 2;
+  grid-row: 1 / 3; /* Ocupa ambas filas */
+  min-height: 480px; /* Altura para acomodar el treemap */
+}
+
+.card-3 {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+/* Divisor dentro del card combinado */
+.card-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e0e0e0, transparent);
+  margin: 20px 0;
+  transition: background 0.3s ease;
+}
+
+.dark-mode .card-divider {
+  background: linear-gradient(90deg, transparent, #404040, transparent);
+}
+
+/* Estilos para el contenido de los cards */
+.card h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #000;
+  transition: color 0.3s ease;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.dark-mode .card h3 {
+  color: #fff;
+}
+
+/* Estilos para el header del card */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.card-header h3 {
+  margin: 0;
+}
+
+/* Estilos para el botón de información */
+.info-button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: #666;
+  font-weight: bold;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  z-index: 10;
+}
+
+/* Estilos específicos para el botón de sectores (esquina superior izquierda) */
+.card-2 .info-button {
+  right: auto;
+  left: -8px;
+}
+
+.info-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+  transform: scale(1.05);
+}
+
+.dark-mode .info-button {
+  color: #fff;
+}
+
+.dark-mode .info-button:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.card p {
+  margin: 0;
+  color: #666;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .card p {
+  color: #a0aec0;
+}
+
+/* Estilos para el contenedor del gráfico */
+.chart-container {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.chart-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Estilos para el contenedor del treemap */
+.treemap-container {
+  width: 100%;
+  height: 520px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.treemap-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Título principal */
+.titulo-card {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 40px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.1);
+  padding: 16px 40px;
+  display: inline-block;
+  z-index: 10;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark-mode .titulo-card {
+  background: rgba(26, 26, 46, 0.95);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.titulo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #d90429;
+  letter-spacing: 1.5px;
+  margin: 0;
+  transition: color 0.3s ease;
+  text-transform: uppercase;
+}
+
+.dark-mode .titulo {
+  color: #f56565;
+}
+
+/* Card de publicación */
+.publicacion-card {
+  position: absolute;
+  top: 30px;
+  right: 90px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.08);
+  padding: 8px 20px;
+  display: inline-block;
+  z-index: 10;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark-mode .publicacion-card {
+  background: rgba(26, 26, 46, 0.9);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.publicacion-texto {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6c757d;
+  letter-spacing: 0.5px;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .publicacion-texto {
+  color: #fff;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .cards-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 20px;
+    max-width: 100%;
+  }
+  
+  .card-1, .card-2, .card-3 {
+    grid-column: 1;
+  }
+  
+  .card-1 {
+    grid-row: 1;
+  }
+  
+  .card-2 {
+    grid-row: 2;
+    grid-row: 2 / 4; /* Ocupa las filas 2 y 3 en móvil */
+    min-height: 440px;
+  }
+  
+  .card-3 {
+    grid-row: 4;
+  }
+  
+  .card {
+    min-height: 200px;
+    padding: 24px;
+    border-radius: 20px;
+  }
+  
+  .chart-container {
+    height: 160px;
+  }
+  
+  .theme-toggle {
+    top: 15px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+  
+  .titulo-card {
+    top: 20px;
+    left: 20px;
+    padding: 12px 24px;
+    border-radius: 30px;
+  }
+  
+  .titulo {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+  
+  .publicacion-card {
+    top: 25px;
+    right: 75px;
+    padding: 6px 16px;
+    border-radius: 16px;
+  }
+  
+  .publicacion-texto {
+    font-size: 0.8rem;
+  }
+} 
